@@ -2,6 +2,7 @@ import glob
 import chardet
 import os.path
 import collections
+import timeit
 
 dictionary = []
 postings = {}
@@ -26,13 +27,11 @@ def writefiles():
 	for infile in glob.glob('input/*'):
 		for entry in dictionary:
 			try:
-				print(entry)
 				output = open('postings/' + entry + '.txt','a')
 				output.write(infile + " " + postings[entry,infile] + "\n")
 				output.close
 			except:
 				pass
-	print("Finished writing postings")
 def writedict():
 	for query in dictionary:
 		dictfile.write(query + "\n")
@@ -57,4 +56,9 @@ for infile in glob.glob('input/*'):
 print("Finished scanning files")
 dictionary = sorted(set(dictionary))
 writedict()
-writefiles()
+print(timeit.timeit(writefiles))
+getpostings('file')
+getpostings('performance')
+getpostings('read')
+getpostings('window')
+getpostings('subject')
